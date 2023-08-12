@@ -1,0 +1,26 @@
+{% extends 'urlshortener/base.html' %} 
+
+{% block body %}
+
+<div class="container">
+  <div><a href="{{absolute_uri}}return">Return</a></div>
+  <div class="card mt-5">
+    <div class="card-header text-center py-3">
+      <h1>URL Info <i class="fas fa-link px-2"></i></h1>
+    </div>
+  </div>
+  {% if errors %}
+  <div class="alert alert-danger mt-4" role="alert">
+    <p>{{errors}}</p>
+  </div>
+  {% endif %}
+  <pre>
+  - Long Url:       {{url.long_url}}  <form class="w-100" action="" method="POST">{% csrf_token %}<div class="row g-1"><div class="col-5">    {{form.long_url}}</div><div class="col-1"><button class="" type="submit">Submit</button></div></div></form>
+  - Short Url:      {{absolute_uri}}{{url.short_url}}<br>
+  - Created:        {{url.created}}<br>
+  - Updated:        {{url.updated}}<br>
+  - Times followed: {{url.times_followed}}<br>
+  </pre>
+  <button class="btn-lg" type="button"><a href="{{absolute_uri}}delete/{{url.short_url}}">Delete link</a></button>
+</div>
+{% endblock body %}

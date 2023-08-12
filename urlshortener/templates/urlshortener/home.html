@@ -1,0 +1,46 @@
+{% extends 'urlshortener/base.html' %} 
+
+{% block body %}
+
+<div class="container">
+  <div class="card mt-5">
+    <div class="card-header text-center py-3">
+      <h1>URL Shortener Application <i class="fas fa-link px-2"></i></h1>
+    </div>
+    <div class="px-3 py-4">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row g-1">
+          <div class="col-10">{{form.long_url}}</div>
+          <div class="col-2">
+            <button class="btn btn-success btn-lg w-100" type="submit">
+              Shorten
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  {% if errors %}
+  <div class="alert alert-danger mt-4" role="alert">
+    <p>{{errors}}</p>
+  </div>
+  {% endif %}
+
+  {% if new_url %} 
+
+  <div class="mx-auto text-center mt-5">
+    <h2 class="text-danger">Last shortened Url</h2>
+    <p>You can copy the Link below and share it with your friends</p>
+    <p class="">{{absolute_uri}}{{new_url}}</p>
+    <p><span class="text-danger">Previous URL:</span> {{long_url}}</p>
+  </div>
+  {% endif %}
+  <div class="mx-auto text-center mt-5">
+    <h2 class="">The list of short urls</h2>
+  </div>
+    {% for link_item in links %}
+    - <a href="{{absolute_uri}}info/{{link_item.short_url}}">[Click for info]</a> <span class="text-danger">{{absolute_uri}}{{link_item.short_url}}</span> is representing <a href={{link_item.long_url}}>{{link_item.long_url}}</a><br>
+    {% endfor %}
+</div>
+{% endblock body %}
